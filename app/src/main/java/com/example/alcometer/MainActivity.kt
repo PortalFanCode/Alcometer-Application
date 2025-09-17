@@ -64,7 +64,7 @@ fun MyNavController(navController: NavHostController) {
 @Composable
 fun MyApp() {
     val navController = rememberNavController()
-    Scaffold(topBar = { TopAppBar { Text(text = "Alcometer") } },
+    Scaffold(topBar = { TopAppBar (backgroundColor = MaterialTheme.colors.primary) { Text(text = "Alcometer") } },
         content = { MyNavController(navController = navController) },
         bottomBar = { MyBottomNavigation(navController) })
 }
@@ -77,7 +77,7 @@ fun MyBottomNavigation(navController: NavController) {
         TabItem("Compare", Icons.Filled.CompareArrows, "Arrows facing each other icon", "Compare"),
         TabItem("Info", Icons.Filled.Info, "Icon with the letter I for Information", "Info")
     )
-    BottomNavigation {
+    BottomNavigation (backgroundColor = MaterialTheme.colors.primary) {
         items.forEachIndexed { index, item ->
             BottomNavigationItem(selected = selectedItem == index,
                 onClick = {
@@ -90,20 +90,6 @@ fun MyBottomNavigation(navController: NavController) {
     }
 }
 
-@Composable
-fun HomeScreen() {
-    Text(text = "Home")
-}
-
-@Composable
-fun CompareScreen() {
-    Text(text = "Compare")
-}
-
-@Composable
-fun InfoScreen() {
-    Text(text = "Information Screen")
-}
 
 @Preview(showBackground = true)
 @Composable
