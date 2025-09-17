@@ -1,6 +1,5 @@
 package com.example.alcometer
 
-import android.preference.PreferenceActivity.Header
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectableGroup
@@ -12,13 +11,13 @@ import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.unit.toSize
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
@@ -30,7 +29,7 @@ fun HomeScreen(myViewModel: HomeViewModel = viewModel()) {
         BottlesField(myViewModel = myViewModel)
         HoursField(myViewModel = myViewModel)
         CalculateButton(myViewModel = myViewModel)
-        Text(text = myViewModel.result)
+        ResultText(myViewModel = myViewModel)
     }
 }
 
@@ -83,7 +82,7 @@ fun BottlesField(myViewModel: HomeViewModel) {
         label = { Text(text = "Bottles drank") },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         trailingIcon = {
-            Row (modifier = Modifier.padding(12.dp)) {
+            Row(modifier = Modifier.padding(12.dp)) {
                 Icon(
                     Icons.Filled.KeyboardArrowDown,
                     contentDescription = stringResource(R.string.KeyboardArrowDownDescription),
@@ -111,7 +110,7 @@ fun HoursField(myViewModel: HomeViewModel) {
         label = { Text(text = "Hours passed") },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         trailingIcon = {
-            Row (modifier = Modifier.padding(12.dp)) {
+            Row(modifier = Modifier.padding(12.dp)) {
                 Icon(
                     Icons.Filled.KeyboardArrowDown,
                     contentDescription = stringResource(R.string.KeyboardArrowDownDescription),
@@ -139,4 +138,16 @@ fun CalculateButton(myViewModel: HomeViewModel) {
     ) {
         Text(text = "Calculate")
     }
+}
+
+@Composable
+fun ResultText(myViewModel: HomeViewModel) {
+    Text(
+        text = myViewModel.result,
+        fontSize =36.sp,
+        textAlign = TextAlign.Center,
+        color = Color.Gray,
+        fontWeight = FontWeight.Bold,
+        modifier = Modifier.fillMaxWidth().padding(12.dp)
+    )
 }

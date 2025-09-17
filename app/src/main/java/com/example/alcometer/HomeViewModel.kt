@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 
 class HomeViewModel : ViewModel() {
+
     var weightInput by mutableStateOf("")
     private val weight: Int
         get() {
@@ -43,19 +44,18 @@ class HomeViewModel : ViewModel() {
         val grams: Float = liters * 8f * 4.5f
         val burning: Float = weight / 10f
         val gramsLeft: Float = grams - (burning * hours)
-        if (male) resultFloat = (gramsLeft / (weight * 0.7)).toFloat()
-        else resultFloat = (gramsLeft / (weight * 0.6)).toFloat()
+        val resultTemp: Float = if (male) (gramsLeft / (weight * 0.7)).toFloat()
+        else (gramsLeft / (weight * 0.6)).toFloat()
+        result = if (resultTemp <= 0f) "Invalid result"
+        else resultTemp.round(2).toString()
     }
 
-    var resultFloat: Float by mutableStateOf(0f)
+    var result by mutableStateOf("")
 
-    var result: String = ""
-        get() {
-            var valid = true
-            if (weight <= 0) valid = false
-            if (bottles <= 0) valid = false
-            if (hours <= 0) valid = false
-            if (resultFloat <= 0f) valid = false
-            return if (valid) resultFloat.toString() else "Invalid parameters"
-        }
+    private fun Float.round(decimals: Int): Float {
+        var multiplier = 1.0f
+        repeat(decimals) { multiplier *= 10 }
+        return kotlin.math.round(this * multiplier) / multiplier
+    }
+
 }
